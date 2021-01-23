@@ -64,7 +64,7 @@ public class Hangman {
         //Initialize
         Drawer drawer = new Drawer();
         UserExperience ui = new UserExperience();
-        String word = "";
+        String word = null;
         ui.printToUser("Welcome to the best HANGMAN game EVER!");
 
         switch (ui.getOption()) {
@@ -84,7 +84,7 @@ public class Hangman {
                 break;
             }
             case 3: {
-                WordGenerator wordGenerator = new WordGenerator(ui.enterWord());
+                word = ui.enterWord().toUpperCase();
                 break;
             }
             case 4: {//TODO

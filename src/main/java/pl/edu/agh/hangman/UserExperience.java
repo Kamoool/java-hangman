@@ -62,6 +62,7 @@ public class UserExperience {
     }
 
     public String enterWord() {
+        System.out.println("Enter your word: ");
         return SC.nextLine();
     }
 
