@@ -62,7 +62,7 @@ public class WordGenerator {
         System.out.println("Words added succesfully, there are " + wordsList.size() + " words in the List.");
     }
 
-    private String getRandomWord(){
+    public String getRandomWord(){
         Random rand = new Random();
         return wordsList.get(rand.nextInt(wordsList.size())).toUpperCase();
     }

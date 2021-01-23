@@ -2,6 +2,11 @@ package pl.edu.agh.hangman;
 
 public class Hangman {
 
+
+    public static final String HAPPYFACE = "YOU ROCK! CONGRATS! (⌐ ͡■ ͜ʖ ͡■)";
+    public static final String SADFACE = "You LOSE! ¯\\_(ツ)_/¯";
+
+
     public static final String[] HANGMANPICS = new String[]{
             "  +---+\n" +
                     "  |   |\n" +
@@ -59,11 +64,9 @@ public class Hangman {
         //Initialize
         Drawer drawer = new Drawer();
         UserExperience ui = new UserExperience();
+        WordGenerator wordGenerator = new WordGenerator("slowa.txt");
 
-
-        //TODO Create WordGenerator + generate random Word
-
-        String word = "EFZETI";
+        String word = wordGenerator.getRandomWord();
 
         WordChecker wordChecker = new WordChecker(word);
 
@@ -79,15 +82,13 @@ public class Hangman {
                 faults++;
             if (wordChecker.getAlreadyGuessed().equals(word)) {
                 wonGame = true;
-
             }
 
         } while ((faults < HANGMANPICS.length) && (!wonGame));
 
         if (wonGame)
-            ui.printToUser("YOU ROCK! CONGRATS!"); //TODO happy face
+            ui.printToUser(HAPPYFACE);
         else
-            ui.printToUser("You LOSE!"); //TODO sad face
-
+            ui.printToUser(SADFACE);
     }
 }
