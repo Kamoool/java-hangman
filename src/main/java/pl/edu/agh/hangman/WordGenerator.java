@@ -69,20 +69,20 @@ public class WordGenerator {
         return wordsList.get(rand.nextInt(wordsList.size())).toUpperCase();
     }
 
-    public String getRandomWord(int wordLength){
+    public String getRandomWord(int wordLength) throws Exception{
 
-        List<String> wordListFiltered = wordsList.stream()
+        List<String> wordsListFiltered = wordsList.stream()
                 .filter(word -> word.length() == wordLength)
                 .collect(Collectors.toList());
 
         Random rand = new Random();
-        if (wordListFiltered.size() == 0){
-            System.out.println("No words of this size found, returning word of random length.");
-            return wordsList.get(rand.nextInt(wordsList.size())).toUpperCase();
-        }
-        return wordListFiltered.get(rand.nextInt(wordListFiltered.size())).toUpperCase();
-    }
 
+        if (wordsListFiltered.size() <= 0) {
+            throw new WrongWordLengthException("Word Length is either too long or too short. No words found.");
+        }
+            return wordsListFiltered.get(rand.nextInt(wordsListFiltered.size())).toUpperCase();
+
+    }
 
 
 }
