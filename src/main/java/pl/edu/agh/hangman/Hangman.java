@@ -64,13 +64,32 @@ public class Hangman {
         //Initialize
         Drawer drawer = new Drawer();
         UserExperience ui = new UserExperience();
-        WordGenerator wordGenerator = new WordGenerator("slowa.txt");
+        String word = "";
+        ui.printToUser("Welcome to the best HANGMAN game EVER!");
 
-        String word = wordGenerator.getRandomWord();
+        switch (ui.getOption()) {
+
+            case 1: {
+                WordGenerator wordGenerator = new WordGenerator("slowa.txt");
+                word = wordGenerator.getRandomWord();
+                break;
+            }
+            case 2: {
+                WordGenerator wordGenerator = new WordGenerator("slowa.txt");
+//                word = wordGenerator.getRandomWord(ui.getWordLength()); //TODO after merging with new WordGenerator
+                break;
+            }
+            case 3: {
+                WordGenerator wordGenerator = new WordGenerator(ui.enterWord());
+                break;
+            }
+            case 4: {//TODO
+                break;
+            }
+
+        }
 
         WordChecker wordChecker = new WordChecker(word);
-
-        ui.printToUser("Welcome to the best HANGMAN game EVER!");
 
         boolean wonGame = false;
         int faults = 0;
@@ -83,12 +102,15 @@ public class Hangman {
             if (wordChecker.getAlreadyGuessed().equals(word)) {
                 wonGame = true;
             }
-
-        } while ((faults < HANGMANPICS.length) && (!wonGame));
+        } while ((faults < HANGMANPICS.length-1) && (!wonGame));
 
         if (wonGame)
             ui.printToUser(HAPPYFACE);
-        else
+        else {
+            ui.printToUser(drawer.createDrawing(HANGMANPICS[faults], wordChecker.getAlreadyGuessed()));
             ui.printToUser(SADFACE);
+            ui.printToUser("The word was: " + word);
+        }
+
     }
 }
