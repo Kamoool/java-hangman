@@ -55,5 +55,39 @@ public class Hangman {
     };
 
     public static void main(String[] args) {
+
+        //Initialize
+        Drawer drawer = new Drawer();
+        UserExperience ui = new UserExperience();
+
+
+        //TODO Create WordGenerator + generate random Word
+
+        String word = "EFZETI";
+
+        WordChecker wordChecker = new WordChecker(word);
+
+        ui.printToUser("Welcome to the best HANGMAN game EVER!");
+
+        boolean wonGame = false;
+        int faults = 0;
+        char guessChar;
+        do {
+            ui.printToUser(drawer.createDrawing(HANGMANPICS[faults], wordChecker.getAlreadyGuessed()));
+            guessChar = ui.getCharFromUser();
+            if (!(wordChecker.checkChar(guessChar)))
+                faults++;
+            if (wordChecker.getAlreadyGuessed().equals(word)) {
+                wonGame = true;
+
+            }
+
+        } while ((faults < HANGMANPICS.length) && (!wonGame));
+
+        if (wonGame)
+            ui.printToUser("YOU ROCK! CONGRATS!"); //TODO happy face
+        else
+            ui.printToUser("You LOSE!"); //TODO sad face
+
     }
 }
