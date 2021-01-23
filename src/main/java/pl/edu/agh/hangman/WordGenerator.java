@@ -3,8 +3,10 @@ package pl.edu.agh.hangman;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class WordGenerator {
 
@@ -15,7 +17,7 @@ public class WordGenerator {
 
     public WordGenerator(String fileAddress) {
         this.fileAddress = fileAddress;
-        wordsList = new ArrayList<String>();
+        wordsList = new ArrayList<>();
         wordsFile = new File("src\\main\\resources\\" + fileAddress);
 
 
@@ -46,7 +48,7 @@ public class WordGenerator {
 
 
     private void listGeneratorFromFile(){
-        wordsList = new ArrayList<String>();
+        wordsList = new ArrayList<>();
         Scanner s = null;
         try {
             s = new Scanner(wordsFile);
@@ -66,5 +68,21 @@ public class WordGenerator {
         Random rand = new Random();
         return wordsList.get(rand.nextInt(wordsList.size())).toUpperCase();
     }
+
+    public String getRandomWord(int wordLength) throws Exception{
+
+        List<String> wordsListFiltered = wordsList.stream()
+                .filter(word -> word.length() == wordLength)
+                .collect(Collectors.toList());
+
+        Random rand = new Random();
+
+        if (wordsListFiltered.size() <= 0) {
+            throw new WrongWordLengthException("Word Length is either too long or too short. No words found.");
+        }
+            return wordsListFiltered.get(rand.nextInt(wordsListFiltered.size())).toUpperCase();
+
+    }
+
 
 }
