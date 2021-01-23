@@ -50,9 +50,9 @@ public class UserExperience {
                 if (testedInt > 0 && testedInt <= MAXOPTION) {
                     optionChoosen = testedInt;
                 } else
-                    throw new IllegalArgumentException("Word lenght must be higher than 0! Provide another one");
+                    throw new WrongWordLengthException("Word lenght must be higher than 0! Provide another one");
                 SC.nextLine();
-            } catch (IllegalArgumentException e) {
+            } catch (WrongWordLengthException e) {
                 System.err.println(e);
             }
 

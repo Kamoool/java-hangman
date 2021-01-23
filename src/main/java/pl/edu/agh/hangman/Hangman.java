@@ -76,7 +76,11 @@ public class Hangman {
             }
             case 2: {
                 WordGenerator wordGenerator = new WordGenerator("slowa.txt");
-//                word = wordGenerator.getRandomWord(ui.getWordLength()); //TODO after merging with new WordGenerator
+                try {
+                    word = wordGenerator.getRandomWord(ui.getWordLength());
+                } catch (Exception e) {
+                    System.err.println(e);
+                }
                 break;
             }
             case 3: {
@@ -102,7 +106,7 @@ public class Hangman {
             if (wordChecker.getAlreadyGuessed().equals(word)) {
                 wonGame = true;
             }
-        } while ((faults < HANGMANPICS.length-1) && (!wonGame));
+        } while ((faults < HANGMANPICS.length - 1) && (!wonGame));
 
         if (wonGame)
             ui.printToUser(HAPPYFACE);
